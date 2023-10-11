@@ -8,14 +8,14 @@ function initApp() {
     showConfirmButton: false,
     timer: 1500
   });
-  fetchUserProfile();
-}
- 
-  function fetchUserProfile() {
+  if(localStorage.getItem("token")){
+  fetchUserProfile();}
+  else {window.location.href = '../../index.html'; }}
+
+function fetchUserProfile() {
     const token = localStorage.getItem('token');
      user = decodeToken(token);
-   
-    console.log(user.id);
+
  generateData (getUserDetails,displayUserDetails);
 }
 
@@ -104,26 +104,20 @@ let data='';
 </div>  `;
 profile.innerHTML = data;}
 
-
-
 function decodeToken(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     const payload = JSON.parse(atob(base64));
     return payload;
 }
-
-
-
-
 async function generateData (callback,display){
     const data=await callback();
     display(data);
 
  }
 
- function logoutUser(){
-    console.log("done ")
+function logoutUser(){
+    localStorage.removeItem("token");
     window.location.href = '../../index.html';
  }
 initApp();
