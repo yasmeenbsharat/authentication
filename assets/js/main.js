@@ -1,44 +1,32 @@
-
 const loginBtn =document.getElementById('login');
-
-
+let current = null;
 loginBtn.addEventListener('click', function(){
     const password=document.getElementById('password').value;
     const userName =document.getElementById('userName').value;
     if (userName =='' || password ==''){
- 
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Your name or password is empty!! Please enter them ^_^',
-      });
-     
-
-    }
-    
+      }); }    
     else {
        userLogin(userName,password);
-    }
+    }});
 
 
-});
 async function  userLogin(userName,password){
     const request = await fetch('https://dummyjson.com/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // username: 'kminchelle',
-          // password: '0lelplR',
           username: `${userName}`,
           password: `${password}`,
         })
       });
     const response = await request.json();
-    console.log(response);
     if(!response.message){
         localStorage.setItem('token',response.token);
         window.location.href = '../../pages/profile.html';
-        console.log(response);
     }
     else{
         Swal.fire({
@@ -51,7 +39,6 @@ async function  userLogin(userName,password){
    
  }
 
-let current = null;
 document.querySelector('#userName').addEventListener('focus', function(e) {
   if (current) current.pause();
   current = anime({

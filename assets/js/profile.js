@@ -48,7 +48,7 @@ let data='';
         </div>
     </div>
     <div class="col-md-2 mt-5">
-        <input type="submit" class="log-out-btn text-primary" name="btnAddMore" value="Log Out" />
+        <input type="submit" class="log-out-btn text-primary" name="btnAddMore" value="Log Out"  onClick="logoutUser()"/>
     </div>
 </div>
 <div class="row">
@@ -120,5 +120,10 @@ async function generateData (callback,display){
     const data=await callback();
     display(data);
 
+ }
+
+ function logoutUser(){
+    console.log("done ")
+    window.location.href = '../../index.html';
  }
 initApp();
