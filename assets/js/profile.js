@@ -1,13 +1,6 @@
 let user;
 let profile = document.getElementById("profile");
 function initApp() {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Logged in Successfully ..!',
-        showConfirmButton: false,
-        timer: 1500
-    });
     if (localStorage.getItem("token")) {
         generateUserProfile();
     }
