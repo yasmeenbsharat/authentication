@@ -26,7 +26,23 @@ async function  userLogin(userName,password){
     const response = await request.json();
     if(!response.message){
         localStorage.setItem('token',response.token);
-        window.location.href = '../../pages/profile.html';
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success',
+           window.location.href = '../../pages/profile.html'
+        );
+      //   swal.fire({
+      //     title: "Hello World", 
+      //     type: "info",   
+      //     showConfirmButton: true,
+      //     confirmButtonText: "Ok",   
+      //     closeOnConfirm: true 
+      // }, function() {
+       
+      // });
+      
+        
     }
     else{
         Swal.fire({

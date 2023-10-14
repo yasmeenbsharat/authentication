@@ -9,10 +9,10 @@ function initApp() {
     timer: 1500
   });
   if(localStorage.getItem("token")){
-  fetchUserProfile();}
+    generateUserProfile();}
   else {window.location.href = '../../index.html'; }}
 
-function fetchUserProfile() {
+function generateUserProfile() {
     const token = localStorage.getItem('token');
      user = decodeToken(token);
 
@@ -116,8 +116,23 @@ async function generateData (callback,display){
 
  }
 
-function logoutUser(){
+// function logoutUser(){
+//     localStorage.removeItem("token");
+//     window.location.href = '../../index.html';
+//  }
+function logoutUser() {
+    // Remove the token from localStorage
     localStorage.removeItem("token");
+
+    // Broadcast the logout event to other tabs/windows
+    const broadcastChannel = new BroadcastChannel('logoutChannel');
+    broadcastChannel.postMessage({ action: 'logout' });
+
+    // Close the broadcast channel
+    broadcastChannel.close();
+
+    // Redirect to the login page
     window.location.href = '../../index.html';
- }
+}
+
 initApp();
