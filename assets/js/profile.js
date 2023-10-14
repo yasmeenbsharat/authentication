@@ -1,34 +1,36 @@
 let user;
-let profile =document.getElementById("profile");
+let profile = document.getElementById("profile");
 function initApp() {
- Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: 'Logged in Successfully ..!',
-    showConfirmButton: false,
-    timer: 1500
-  });
-  if(localStorage.getItem("token")){
-    generateUserProfile();}
-  else {window.location.href = '../../index.html'; }}
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Logged in Successfully ..!',
+        showConfirmButton: false,
+        timer: 1500
+    });
+    if (localStorage.getItem("token")) {
+        generateUserProfile();
+    }
+    else { window.location.href = '../../index.html'; }
+}
 
 function generateUserProfile() {
     const token = localStorage.getItem('token');
-     user = decodeToken(token);
+    user = decodeToken(token);
 
- generateData (getUserDetails,displayUserDetails);
+    generateData(getUserDetails, displayUserDetails);
 }
 
 
-async function  getUserDetails(){
-const request = await fetch(`https://dummyjson.com/users/${user.id}`);
-user = await request.json();
-return user;
+async function getUserDetails() {
+    const request = await fetch(`https://dummyjson.com/users/${user.id}`);
+    user = await request.json();
+    return user;
 }
 
-function displayUserDetails(user){
-let data='';
-    data +=`<div class="row">
+function displayUserDetails(user) {
+    let data = '';
+    data += `<div class="row">
     <div class="col-md-4">
         <div class="profile-img">
             <img src="${user.image}" alt="userImg" class=''/>
@@ -102,7 +104,8 @@ let data='';
         </div>
     </div>
 </div>  `;
-profile.innerHTML = data;}
+    profile.innerHTML = data;
+}
 
 function decodeToken(token) {
     const base64Url = token.split('.')[1];
@@ -110,29 +113,22 @@ function decodeToken(token) {
     const payload = JSON.parse(atob(base64));
     return payload;
 }
-async function generateData (callback,display){
-    const data=await callback();
+async function generateData(callback, display) {
+    const data = await callback();
     display(data);
 
- }
-
-// function logoutUser(){
-//     localStorage.removeItem("token");
-//     window.location.href = '../../index.html';
-//  }
-function logoutUser() {
-    // Remove the token from localStorage
-    localStorage.removeItem("token");
-
-    // Broadcast the logout event to other tabs/windows
-    const broadcastChannel = new BroadcastChannel('logoutChannel');
-    broadcastChannel.postMessage({ action: 'logout' });
-
-    // Close the broadcast channel
-    broadcastChannel.close();
-
-    // Redirect to the login page
-    window.location.href = '../../index.html';
 }
 
+
+
+function handleLogoutMessage(event) {
+    if (event.data.action === 'logout') {
+        alert("You have been logged out.");
+        window.location.href = '/index.html';
+    }
+
+}
+
+const logoutChannel = new BroadcastChannel('logoutChannel');
+logoutChannel.onmessage = handleLogoutMessage;
 initApp();
