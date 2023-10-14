@@ -30,7 +30,8 @@ async function  userLogin(userName,password){
           'Good job!',
           'You clicked the button!',
           'success',
-           window.location.href = '../../pages/profile.html'
+          // window.location.href = '../../pages/profile.html'
+           window.location.href = 'pages/profile.html'
         );
       //   swal.fire({
       //     title: "Hello World", 
