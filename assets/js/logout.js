@@ -4,7 +4,7 @@ function logoutUser() {
     const broadcastChannel = new BroadcastChannel('logoutChannel');
     broadcastChannel.postMessage({ action: 'logout' });
     broadcastChannel.close();
-    window.location.href = 'index.html';
+    window.location.href = '../../index.html';
 }
 
 
