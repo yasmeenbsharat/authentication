@@ -117,7 +117,7 @@ async function generateData(callback, display) {
 function handleLogoutMessage(event) {
     if (event.data.action === 'logout') {
         alert("You have been logged out.");
-        window.location.href = '../../index.html';
+        window.location.href = '';
     }
 
 }
