@@ -31,7 +31,7 @@ async function userLogin(userName, password) {
     if (confirm("Logged in Successfully ..! Do u want to continue?")) {
       window.location.href = 'pages/profile.html'
     } else {
-      window.location.href = '../../index.html';
+      window.location.href = '../';
     }
 
 
