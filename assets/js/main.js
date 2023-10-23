@@ -33,9 +33,6 @@ async function userLogin(userName, password) {
     } else {
       window.location.href = '../';
     }
-
-
-
   }
   else {
     Swal.fire({
